@@ -60,7 +60,7 @@ if(isset($_COOKIE['playername'])){
             <div class="flex justify-center items-center px-4 mt-[3px]">
                 <?php echo '<a class="group" href="https://clashscout.com/profile/'.strtolower($headerJson["PlayerData"]["GameName"]).'/'.strtolower($headerJson["PlayerData"]["Tag"]).'">';
                       echo '<img width="32" height="32" src="/clashapp/data/patch/'.$currentPatch.'/img/profileicon/'.$headerJson["PlayerData"]["Icon"].'.avif?version='.md5_file('/hdd1/clashapp/data/patch/'.$currentPatch.'/img/profileicon/'.$headerJson["PlayerData"]["Icon"].'.avif').'" class="align-middle mr-2.5 no-underline inline-flex" alt="A custom profile icon of a player">';
-                      echo '<p id="highlighter" data-username="'.$dataName.'" class="inline decoration-2 group-hover:text-[#fff] group-hover:underline group-hover:text-[#fff]" style="text-decoration-skip-ink: none;"><span class="text-white">'.$headerJson["PlayerData"]["GameName"].'</span></p><span class="bg-searchtitle px-1 rounded ml-1 text-sm decoration-2 group-hover:text-[#fff] group-hover:text-[#fff] text-[#9ea4bd]">#'.$headerJson["PlayerData"]["Tag"].'</span></a>'; ?>
+                      echo '<p id="highlighter" data-username="'.$dataName.'" class="inline decoration-2  group-hover:underline group-hover:text-[#fff]" style="text-decoration-skip-ink: none;"><span class="text-white">'.$headerJson["PlayerData"]["GameName"].'</span></p><span class="bg-searchtitle px-1 rounded ml-1 text-sm decoration-2 group-hover:text-[#fff] text-[#9ea4bd]">#'.$headerJson["PlayerData"]["Tag"].'</span></a>'; ?>
             </div>
             <?php } else if(isset($_SESSION['user']['username'])){ ?>
             <div class="flex justify-center items-center px-4 mt-[3px]">
@@ -79,16 +79,16 @@ if(isset($_COOKIE['playername'])){
                     <option value="de_DE" <?= (isset($_COOKIE["lang"]) && $_COOKIE["lang"] == "de_DE") ? "selected disabled hidden" : ""; ?>>Deutsch</option>
                 </select>
             </div>
-            <div id="settings-button" class="flex items-center ml-2 mr-4 cursor-pointer" onclick="document.getElementById('modal').classList.contains('hidden') ? document.getElementById('modal').classList.remove('hidden') : document.getElementById('modal').classList.add('hidden')">
+            <div id="settings-button" class="flex items-center ml-2 mr-4 cursor-pointer" onclick="document.getElementById('modal').classList.contains('hidden') ? document.getElementById('modal').classList.replace('hidden', 'flex') : document.getElementById('modal').classList.replace('flex', 'hidden')">
                 <img src="/data/misc/settings-wheel.avif?version=<?= md5_file("/hdd1/warframe/data/misc/settings-wheel.avif") ?>" width="20" height="20" alt="A settings wheel icon which looks like a gear" title="<?= __("Settings") ?>">
             </div>
-            <div id="modal" class="hidden fixed flex items-center justify-center z-50 right-4 top-20">
+            <div id="modal" class="hidden fixed items-center justify-center z-50 right-4 top-20">
                 <div class="bg-dark p-6 rounded-lg rounded-tr-none shadow-lg w-80">
                     <label for="name-input"><?=__('Custom Name');?></label>
                     <input type="text" id="name-input" placeholder="<?=__('ExampleName123');?>" class="autofill:text-black text-black p-2 mt-2 mb-4 w-full"
                            onkeydown="if (event.key === 'Enter') { setCookie('playername', document.getElementById('name-input').value); location.reload(); }">
                     <div class="flex justify-end space-x-2">
-                        <button onclick="document.getElementById('modal').classList.add('hidden')"><?=__('Cancel');?></button>
+                        <button onclick="document.getElementById('modal').classList.replace('flex', 'hidden')"><?=__('Cancel');?></button>
                         <button onclick="setCookie('playername', document.getElementById('name-input').value); location.reload();" class="bg-tag-navy text-white px-4 py-2"><?=__('Ready');?></button>
                     </div>
                 </div>
@@ -508,7 +508,7 @@ $db = new DB();
                 <input  type="text" 
                         name="champion_input"
                         placeholder="Excalibur, Volt, etc."
-                        class="autofill:text-black text-black border border-2 border-solid border-white p-2 focus:border focus:border-2 focus:border-solid focus:border-white <?php if (isset($isCorrect)) echo $isCorrect ? 'correct-border' : 'incorrect-border'; ?>"
+                        class="autofill:text-black text-black border-2 border-solid border-white p-2 focus:border-2 focus:border-solid focus:border-white <?php if (isset($isCorrect)) echo $isCorrect ? 'correct-border' : 'incorrect-border'; ?>"
                         onkeydown="handleInputKeyDown(event)">
                 <div id="suggestions"></div>
                 <button type="submit" class="bg-tag-navy text-white px-4 py-2 border-2 border-solid border-tag-navy">&#10148;</button>
