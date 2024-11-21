@@ -498,36 +498,17 @@ $db = new DB();
             </ol>
         </div>
     </div>
-    <div class="flex justify-center gap-x-8 mt-40 bg-dark rounded w-fit p-4">
-        <div id="canvasContainer" class="text-center mb-4 flex justify-center flex-col items-center w-72">
-            <h1 class="text-3xl font-bold mb-4"><?= __("Pixel Guesser") ?></h1>
-            <canvas id="pixelatedCanvas" width="256" height="256"></canvas>
-            <img id="fullImage" src="" alt="Full Image" width="256" height="256" class="mt-[-6.5rem]">
-            <span class="text-xl h-4 mt-4 animate-fadeIn opacity-0" id="championName"></span>
-            <form method="post" class="text-center flex mt-8" id="championForm" onsubmit="checkChamp(); return false;" autocomplete="off">
-                <input  type="text" 
-                        name="champion_input"
-                        placeholder="Excalibur, Volt, etc."
-                        class="autofill:text-black text-black border-2 border-solid border-white p-2 focus:border-2 focus:border-solid focus:border-white <?php if (isset($isCorrect)) echo $isCorrect ? 'correct-border' : 'incorrect-border'; ?>"
-                        onkeydown="handleInputKeyDown(event)">
-                <div id="suggestions"></div>
-                <button type="submit" class="bg-tag-navy text-white px-4 py-2 border-2 border-solid border-tag-navy">&#10148;</button>
-            </form>
-            <div class="flex justify-center items-center mt-4">
-                <span class="text-xl"><?= __("Difficulty: ") ?></span>
-                <select id="difficulty-selector"  aria-label="Difficulty Selector"
-                        class="text-center h-8 w-28 align-middle mr-2.5 ml-2.5 text-base bg-[#eee] text-black active:bg-[#ccc] focus:outline-none border-none"
-                        onchange="setCookie('pixelChamp', this.value); this.disabled = true; location.reload();">
-                    <option value="easy" <?= (!isset($_COOKIE["pixelChamp"]) || $_COOKIE["pixelChamp"] == "easy") ? "hidden" : ""; ?>><?= __("Easy") ?></option>
-                    <option value="medium" <?= (isset($_COOKIE["pixelChamp"]) && $_COOKIE["pixelChamp"] == "medium") ? "hidden" : ""; ?>><?= __("Medium") ?></option>
-                    <option value="hard" <?= (isset($_COOKIE["pixelChamp"]) && $_COOKIE["pixelChamp"] == "hard") ? "hidden" : ""; ?>><?= __("Hard") ?></option>
-                </select>
-            </div>
+    <div class="flex justify-center gap-x-8 mt-40 bg-dark rounded p-4 w-[82rem] h-[50rem]">
+        <div id="canvasContainer" class="mb-4 flex flex-col w-3/5 h-full">
+            <h1 class="text-3xl pl-2 pt-1 font-bold mb-4"><?= __("Pixel Guesser") ?></h1>
+            <canvas id="pixelatedCanvas" width="640" height="640" class="w-[640px] h-[640px] mx-auto"></canvas>
+            <img id="fullImage" src="" alt="Full Image" width="640" height="640" class="mt-[3.5rem] ml-[3.4rem]">
+            <span class="text-xl h-4 mt-4 mx-auto animate-fadeIn opacity-0" id="championName"></span>
         </div>
-        <div class="flex items-center flex-col justify-start w-[420px] gap-y-4">
+        <div class="flex items-center flex-col justify-start w-2/5 gap-y-4">
             <span class="text-xl"><?= __("Bonus Points: ") ?></span>
             <div id="bonus-bar" class="bonus-bar"></div>
-            <div id='chatContainer' class='bg-darker w-full max-h-80 h-full p-2 flex flex-col-reverse overflow-auto twok:text-base fullhd:text-sm'></div>
+            <div id='chatContainer' class='bg-darker w-full max-h-[32rem] h-full p-2 flex flex-col-reverse overflow-auto twok:text-base fullhd:text-sm'></div>
             <?php 
             if(isset($_SESSION['user']['email'], $_SESSION['user']['username'])){ 
                 echo '<div class="text-xl">'.__("Points: "); 
@@ -541,10 +522,29 @@ $db = new DB();
                         <div class='flex justify-center gap-x-0 -mt-8' x-cloak>
                             <span class='text-sm absolute backdrop-blur-2xl bg-black/80 p-2 rounded' x-show='showNotice' x-transition>".sprintf(__("Please %slogin%s or %sregister%s to see and save your score"), "<a href='/login' class='underline'>", "</a>", "<a href='/register' class='underline'>", "</a>")."</span>
                         </div></div>";
-
-
             }
             ?>
+            <div class="flex flex-col justify-center items-center w-full">
+                <form method="post" class="text-center flex my-4 w-full justify-center" id="championForm" onsubmit="checkChamp(); return false;" autocomplete="off">
+                    <input  type="text" 
+                            name="champion_input"
+                            placeholder="Excalibur, Volt, etc."
+                            class="w-1/2 autofill:text-black text-black border-2 border-solid border-white p-2 focus:border-2 focus:border-solid focus:border-white <?php if (isset($isCorrect)) echo $isCorrect ? 'correct-border' : 'incorrect-border'; ?>"
+                            onkeydown="handleInputKeyDown(event)">
+                    <div id="suggestions"></div>
+                    <button type="submit" class="bg-tag-navy text-white px-4 py-2 border-2 border-solid border-tag-navy">&#10148;</button>
+                </form>
+                <div class="flex justify-center items-center mt-4">
+                    <span class="text-xl"><?= __("Difficulty: ") ?></span>
+                    <select id="difficulty-selector"  aria-label="Difficulty Selector"
+                            class="text-center h-8 w-28 align-middle mr-2.5 ml-2.5 text-base bg-[#eee] text-black active:bg-[#ccc] focus:outline-none border-none"
+                            onchange="setCookie('pixelChamp', this.value); this.disabled = true; location.reload();">
+                        <option value="easy" <?= (!isset($_COOKIE["pixelChamp"]) || $_COOKIE["pixelChamp"] == "easy") ? "hidden" : ""; ?>><?= __("Easy") ?></option>
+                        <option value="medium" <?= (isset($_COOKIE["pixelChamp"]) && $_COOKIE["pixelChamp"] == "medium") ? "hidden" : ""; ?>><?= __("Medium") ?></option>
+                        <option value="hard" <?= (isset($_COOKIE["pixelChamp"]) && $_COOKIE["pixelChamp"] == "hard") ? "hidden" : ""; ?>><?= __("Hard") ?></option>
+                    </select>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -700,8 +700,9 @@ $db = new DB();
         // Create a new canvas element
         const canvas = document.createElement("canvas");
         canvas.id = "pixelatedCanvas";
-        canvas.width = 256; // Set the desired width
-        canvas.height = 256; // Set the desired height
+        canvas.width = 640; // Set the desired width
+        canvas.height = 640; // Set the desired height
+        canvas.classList.add("w-[640px]", "h-[640px]", "mx-auto");
         document.getElementById("canvasContainer").insertBefore(canvas, document.getElementById("canvasContainer").children[1]);
 
         const context = canvas.getContext("2d", { willReadFrequently: true });
