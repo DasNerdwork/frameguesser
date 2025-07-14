@@ -6,3 +6,4 @@ node_modules
 /css/output.css
 package-lock.json
 /voidwatch
+*.csv
