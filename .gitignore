@@ -1,4 +1,5 @@
 node_modules
+/wf_stats_to_sheets
 /websocket/node_modules
 /websocket/images
 /websocket/package-lock.json
