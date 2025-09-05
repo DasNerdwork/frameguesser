@@ -5,6 +5,5 @@ node_modules
 /websocket/package-lock.json
 /data
 /css/output.css
-package-lock.json
 /voidwatch
 *.csv
